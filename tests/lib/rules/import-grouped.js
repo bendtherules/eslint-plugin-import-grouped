@@ -17,7 +17,14 @@ var rule = require("../../../lib/rules/import-grouped"),
 // Tests
 //------------------------------------------------------------------------------
 
-var ruleTester = new RuleTester();
+var ruleTester = new RuleTester({
+    parserOptions: {
+        ecmaVersion: 7,
+        sourceType: 'module',
+    },
+    
+});
+
 ruleTester.run("import-grouped", rule, {
 
     valid: [
@@ -27,10 +34,11 @@ ruleTester.run("import-grouped", rule, {
 
     invalid: [
         {
-            code: "`import 'a'; import 'style.css';import 'b';`",
+            code: "import 'a'; import 'style.css';import 'b';",
+            options: [['', '.css']],
             errors: [{
-                message: "Fill me in.",
-                type: "Me too"
+                // message: "Fill me in.",
+                type: "ImportDeclaration",
             }]
         }
     ]
